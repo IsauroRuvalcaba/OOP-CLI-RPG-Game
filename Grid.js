@@ -1,9 +1,13 @@
 import { GridObject } from "./GridObject.js";
 
 class Grid {
-  constructor(width, height) {
+  #currentObject;
+
+  constructor(width, height, playerStartX = 0, playerStartY = height - 1) {
     this.width = width;
     this.height = height;
+    this.playerX = playerStartX;
+    this.playerY = playerStartY;
 
     // create the grid
     this.grid = [];
@@ -21,7 +25,21 @@ class Grid {
     // goal - top right
     this.grid[0][width - 1] = new GridObject("⭐️", "win");
 
-    // console.log(this.grid);
+    this.displayGrid();
+    this.movePlayerRight();
+    this.movePlayerRight();
+    this.movePlayerRight();
+    this.movePlayerRight();
+    this.movePlayerUp();
+    this.movePlayerUp();
+    this.movePlayerUp();
+    this.movePlayerLeft();
+    this.movePlayerLeft();
+    this.movePlayerDown();
+    this.movePlayerLeft();
+    this.movePlayerLeft();
+    this.movePlayerLeft();
+    console.log("-----------");
     this.displayGrid();
   }
 
@@ -34,6 +52,106 @@ class Grid {
       }
       process.stdout.write("\n");
     }
+  }
+
+  movePlayerRight() {
+    // check if on rigth edge of map
+    if (this.playerX === this.width - 1) {
+      console.log("Cannot move right");
+      return;
+    }
+
+    // set our current spot to be discovered
+    // * this is where player position replaces original grid layout
+    this.grid[this.playerY][this.playerX] = new GridObject("🐾", "discovered");
+
+    // move the player to the right
+    this.playerX += 1;
+
+    // check if where we're moving to has been discovered already
+    if (this.grid[this.playerY][this.playerX].type === "discovered") {
+      this.grid[this.playerY][this.playerX] = new GridObject("🐵");
+      return;
+    }
+
+    // discovering a new place
+    // this.#currentObject = new GridObject(); // generation
+    this.grid[this.playerY][this.playerX] = new GridObject("🐵");
+  }
+
+  movePlayerLeft() {
+    // check if on left edge of map
+    if (this.playerX === 0) {
+      console.log("Cannot move left");
+      return;
+    }
+
+    // set our current spot to be discovered
+    // * this is where player position replaces original grid layout
+    this.grid[this.playerY][this.playerX] = new GridObject("🐾", "discovered");
+
+    // move the player to the left
+    this.playerX -= 1;
+
+    // check if where we're moving to has been discovered already
+    if (this.grid[this.playerY][this.playerX].type === "discovered") {
+      this.grid[this.playerY][this.playerX] = new GridObject("🐵");
+      return;
+    }
+
+    // discovering a new place
+    // this.#currentObject = new GridObject(); // generation
+    this.grid[this.playerY][this.playerX] = new GridObject("🐵");
+  }
+
+  movePlayerUp() {
+    // check if on upper edge of map
+    if (this.playerY === 0) {
+      console.log("Cannot move up");
+      return;
+    }
+
+    // set our current spot to be discovered
+    // * this is where player position replaces original grid layout
+    this.grid[this.playerY][this.playerX] = new GridObject("🐾", "discovered");
+
+    // move the player to the left
+    this.playerY -= 1;
+
+    // check if where we're moving to has been discovered already
+    if (this.grid[this.playerY][this.playerX].type === "discovered") {
+      this.grid[this.playerY][this.playerX] = new GridObject("🐵");
+      return;
+    }
+
+    // discovering a new place
+    // this.#currentObject = new GridObject(); // generation
+    this.grid[this.playerY][this.playerX] = new GridObject("🐵");
+  }
+
+  movePlayerDown() {
+    // check if on bottom edge of map
+    if (this.playerY === this.height - 1) {
+      console.log("Cannot move down");
+      return;
+    }
+
+    // set our current spot to be discovered
+    // * this is where player position replaces original grid layout
+    this.grid[this.playerY][this.playerX] = new GridObject("🐾", "discovered");
+
+    // move the player to the left
+    this.playerY += 1;
+
+    // check if where we're moving to has been discovered already
+    if (this.grid[this.playerY][this.playerX].type === "discovered") {
+      this.grid[this.playerY][this.playerX] = new GridObject("🐵");
+      return;
+    }
+
+    // discovering a new place
+    // this.#currentObject = new GridObject(); // generation
+    this.grid[this.playerY][this.playerX] = new GridObject("🐵");
   }
 }
 
