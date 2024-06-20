@@ -1,3 +1,5 @@
+import { GridObject } from "./GridObject.js";
+
 class Grid {
   constructor(width, height) {
     this.width = width;
@@ -8,16 +10,16 @@ class Grid {
     for (let row = 0; row < height; row++) {
       let thisRow = [];
       for (let col = 0; col < width; col++) {
-        thisRow.push("🌳");
+        thisRow.push(new GridObject());
       }
       this.grid.push(thisRow);
     }
 
     // player - bottom left
-    this.grid[height - 1][0] = "🐵";
+    this.grid[height - 1][0] = new GridObject("🐵", "player");
 
     // goal - top right
-    this.grid[0][width - 1] = "⭐️";
+    this.grid[0][width - 1] = new GridObject("⭐️", "win");
 
     // console.log(this.grid);
     this.displayGrid();
@@ -27,7 +29,7 @@ class Grid {
     for (let row = 0; row < this.height; row++) {
       for (let col = 0; col < this.width; col++) {
         // console.log(this.grid[row][col]);
-        process.stdout.write(this.grid[row][col]);
+        process.stdout.write(this.grid[row][col].sprite);
         process.stdout.write("\t");
       }
       process.stdout.write("\n");
@@ -36,4 +38,5 @@ class Grid {
 }
 
 new Grid(5, 5);
+
 // #backgroundSprites = ["🌳", "🌲", "🌴", "🌵","🎉","🐵","🐾","⭐️","⚔️","🕷"];
