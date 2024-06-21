@@ -39,6 +39,12 @@ class Grid {
     this.movePlayerLeft();
     this.movePlayerLeft();
     this.movePlayerLeft();
+
+    this.movePlayerRight();
+    this.movePlayerUp();
+
+    this.movePlayerRight();
+
     console.log("-----------");
     this.displayGrid();
   }
@@ -70,6 +76,8 @@ class Grid {
 
     // check if where we're moving to has been discovered already
     if (this.grid[this.playerY][this.playerX].type === "discovered") {
+      this.grid[this.playerY][this.playerX].describe();
+
       this.grid[this.playerY][this.playerX] = new GridObject("🐵");
       return;
     }
@@ -95,6 +103,8 @@ class Grid {
 
     // check if where we're moving to has been discovered already
     if (this.grid[this.playerY][this.playerX].type === "discovered") {
+      this.grid[this.playerY][this.playerX].describe();
+
       this.grid[this.playerY][this.playerX] = new GridObject("🐵");
       return;
     }
@@ -120,6 +130,8 @@ class Grid {
 
     // check if where we're moving to has been discovered already
     if (this.grid[this.playerY][this.playerX].type === "discovered") {
+      this.grid[this.playerY][this.playerX].describe();
+
       this.grid[this.playerY][this.playerX] = new GridObject("🐵");
       return;
     }
@@ -145,6 +157,8 @@ class Grid {
 
     // check if where we're moving to has been discovered already
     if (this.grid[this.playerY][this.playerX].type === "discovered") {
+      this.grid[this.playerY][this.playerX].describe();
+
       this.grid[this.playerY][this.playerX] = new GridObject("🐵");
       return;
     }
