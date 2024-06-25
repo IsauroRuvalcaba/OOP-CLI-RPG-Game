@@ -4,7 +4,7 @@ class ItemObject extends GridObject {
   #stats = {
     name: null,
     attack: 0,
-    defence: 0,
+    defense: 0,
     hp: 0,
   };
 
@@ -21,7 +21,7 @@ class ItemObject extends GridObject {
   getStats() {
     return {
       attack: this.#stats.attack,
-      defence: this.#stats.defence,
+      defense: this.#stats.defense,
       hp: this.#stats.hp,
     };
   }
@@ -30,7 +30,7 @@ class ItemObject extends GridObject {
     const stats = this.#stats;
     console.log(`${this.sprite} You found a ${stats.name}`);
     console.log(
-      `${stats.name}'s Stats: HP: ${stats.hp} ATK: ${stats.attack} DEF: ${stats.hp}`
+      `${stats.name}'s Stats: HP: ${stats.hp} ATK: ${stats.attack} DEF: ${stats.defense}`
     );
   }
 }
