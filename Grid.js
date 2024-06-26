@@ -2,6 +2,7 @@ import { GridObject } from "./GridObject.js";
 import { ItemObject } from "./ItemObject.js";
 import { EnemyObject } from "./EnemyObject.js";
 import { Player } from "./Player.js";
+import { promptPlayerForDirection } from "./playerPrompts.js";
 
 class Grid {
   #currentObject;
@@ -30,25 +31,25 @@ class Grid {
     this.grid[0][width - 1] = new GridObject("⭐️", "win");
 
     this.displayGrid();
-    this.movePlayerRight();
-    this.movePlayerRight();
-    this.movePlayerRight();
-    this.movePlayerRight();
-    this.movePlayerUp();
-    this.movePlayerUp();
-    this.movePlayerUp();
-    this.movePlayerUp();
-    this.movePlayerLeft();
-    this.movePlayerLeft();
-    this.movePlayerDown();
-    this.movePlayerLeft();
-    this.movePlayerLeft();
-    this.movePlayerLeft();
+    // this.movePlayerRight();
+    // this.movePlayerRight();
+    // this.movePlayerRight();
+    // this.movePlayerRight();
+    // this.movePlayerUp();
+    // this.movePlayerUp();
+    // this.movePlayerUp();
+    // this.movePlayerUp();
+    // this.movePlayerLeft();
+    // this.movePlayerLeft();
+    // this.movePlayerDown();
+    // this.movePlayerLeft();
+    // this.movePlayerLeft();
+    // this.movePlayerLeft();
 
-    this.movePlayerRight();
-    this.movePlayerUp();
+    // this.movePlayerRight();
+    // this.movePlayerUp();
 
-    this.movePlayerRight();
+    // this.movePlayerRight();
 
     console.log("-----------");
     this.displayGrid();
