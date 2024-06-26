@@ -11,6 +11,7 @@ class Grid {
     this.height = height;
     this.playerX = playerStartX;
     this.playerY = playerStartY;
+    this.player = new Player("Monkey King", { attack: 10, defense: 5, hp: 20 });
 
     // create the grid
     this.grid = [];
@@ -33,6 +34,7 @@ class Grid {
     this.movePlayerRight();
     this.movePlayerRight();
     this.movePlayerRight();
+    this.movePlayerUp();
     this.movePlayerUp();
     this.movePlayerUp();
     this.movePlayerUp();
@@ -88,6 +90,61 @@ class Grid {
     return object;
   }
 
+  executeturn() {
+    if (this.grid[this.playerY][this.playerX].type === "win") {
+      console.log(`🎉 Congrats! You reached the end of the game! 🥳`);
+      process.exit(); // exits our entire program.  like pressing ctrl + c in node
+    }
+
+    if (this.#currentObject.type === "discovered") {
+      this.#currentObject.describe();
+      return;
+    }
+
+    if (this.#currentObject.type === "item") {
+      this.#currentObject.describe();
+      const itemStats = this.#currentObject.getStats();
+
+      this.player.addToStats(itemStats);
+      return;
+    }
+
+    // enemy
+    this.#currentObject.describe();
+
+    const enemyStats = this.#currentObject.getStats();
+    const enemyName = this.#currentObject.getName();
+    const playerStats = this.player.getStats();
+
+    if (enemyStats.defense > playerStats.attack) {
+      console.log(`You Lose - ${enemyName} was too powerful`);
+      process.exit();
+    }
+
+    let totalPlayerDamage = 0;
+    while (enemyStats.hp > 0) {
+      const enemyDamageTurn = playerStats.attack - enemyStats.defense;
+      const playerDamageTurn = enemyStats.attack - playerStats.defense;
+
+      if (enemyDamageTurn > 0) {
+        enemyStats.hp -= enemyDamageTurn;
+      }
+      if (playerDamageTurn > 0) {
+        playerStats.hp -= playerDamageTurn;
+        totalPlayerDamage += playerDamageTurn;
+      }
+    }
+
+    if (playerStats.hp <= 0) {
+      console.log(`You Lose - ${enemyName} was too powerfull!`);
+      process.exit();
+    }
+
+    this.player.addToStats({ hp: -totalPlayerDamage });
+    console.log(`You defeated the ${enemyName}! Your updated stats: `);
+    this.player.desscibe();
+  }
+
   movePlayerRight() {
     // check if on rigth edge of map
     if (this.playerX === this.width - 1) {
@@ -112,7 +169,7 @@ class Grid {
 
     // discovering a new place
     this.#currentObject = this.generateGridObject(); // generation
-    this.#currentObject.describe();
+    this.executeturn();
     this.grid[this.playerY][this.playerX] = new GridObject("🐵");
   }
 
@@ -140,7 +197,7 @@ class Grid {
 
     // discovering a new place
     this.#currentObject = this.generateGridObject(); // generation
-    this.#currentObject.describe();
+    this.executeturn();
     this.grid[this.playerY][this.playerX] = new GridObject("🐵");
   }
 
@@ -168,7 +225,7 @@ class Grid {
 
     // discovering a new place
     this.#currentObject = this.generateGridObject(); // generation
-    this.#currentObject.describe();
+    this.executeturn();
     this.grid[this.playerY][this.playerX] = new GridObject("🐵");
   }
 
@@ -196,7 +253,7 @@ class Grid {
 
     // discovering a new place
     this.#currentObject = this.generateGridObject(); // generation
-    this.#currentObject.describe();
+    this.executeturn();
     this.grid[this.playerY][this.playerX] = new GridObject("🐵");
   }
 }
