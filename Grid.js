@@ -30,32 +30,41 @@ class Grid {
     // goal - top right
     this.grid[0][width - 1] = new GridObject("⭐️", "win");
 
-    this.displayGrid();
-    // this.movePlayerRight();
-    // this.movePlayerRight();
-    // this.movePlayerRight();
-    // this.movePlayerRight();
-    // this.movePlayerUp();
-    // this.movePlayerUp();
-    // this.movePlayerUp();
-    // this.movePlayerUp();
-    // this.movePlayerLeft();
-    // this.movePlayerLeft();
-    // this.movePlayerDown();
-    // this.movePlayerLeft();
-    // this.movePlayerLeft();
-    // this.movePlayerLeft();
+    this.startGame();
+  }
 
-    // this.movePlayerRight();
-    // this.movePlayerUp();
+  // cannot put an asyn function in constructor so must be as a method
+  async startGame() {
+    while (this.player.getStats().hp > 0) {
+      this.displayGrid();
+      const response = await promptPlayerForDirection();
 
-    // this.movePlayerRight();
+      switch (response) {
+        case "Up": {
+          this.movePlayerUp();
+          break;
+        }
+        case "Down": {
+          this.movePlayerDown();
+          break;
+        }
+        case "Left": {
+          this.movePlayerLeft();
+          break;
+        }
+        case "Right": {
+          this.movePlayerRight();
+          break;
+        }
+      }
 
-    console.log("-----------");
-    this.displayGrid();
+      console.log("------------------------------------");
+    }
   }
 
   displayGrid() {
+    this.player.desscibe();
+
     for (let row = 0; row < this.height; row++) {
       for (let col = 0; col < this.width; col++) {
         // console.log(this.grid[row][col]);
@@ -80,7 +89,7 @@ class Grid {
     } else if (random < 0.35) {
       object = new EnemyObject("🕷", {
         name: "Spider",
-        attack: 5,
+        attack: 15,
         defense: 1,
         hp: 6,
       });
